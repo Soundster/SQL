@@ -1,0 +1,16 @@
+SELECT
+account_nbr,
+concat(REPLACE(REPLACE(customer_nbr, ',','\,'), '"','""')) as 'customer_grouping',
+mrr_date,
+product_line,
+priorperiodendingmrr,
+rptperioddelta,
+rptperiodendingmrr,
+rptperiodexpansion,
+rptperiodreturn,
+rptperiodwin,
+rptperiodchurn,
+rptperiodcontraction
+FROM ods_ops.gd_xox_fact
+where mrr_date = '2017-09-30' and comparison_type = 'Y: Year over Year' 
+order by account_nbr
