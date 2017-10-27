@@ -1,0 +1,8 @@
+SELECT 
+    account_nbr, mrr_date, SUM(rptperiodendingmrr)
+FROM
+    gd_xox_fact
+WHERE
+    account_nbr IN ('4981' , '5947')
+AND comparison_type = 'M: Month over Month'
+GROUP BY account_nbr , mrr_date
