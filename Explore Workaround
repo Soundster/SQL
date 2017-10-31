@@ -1,0 +1,38 @@
+  // Google Drive scope required for query. DO NOT REMOVE commented line below b/c
+  // App Script automatically scans code for required scopes (including comments) 
+  // var files = DriveApp.getFiles();
+
+function createTriggers() {
+  
+  ScriptApp.newTrigger('hs_test_ps_20171030')
+      .timeBased()
+      .atHour(7)
+      .everyDays(1)
+      .create();
+  
+}
+
+
+function hs_test_ps_20171030() {
+  
+  var projectId = 'edw-prod-153420'
+  var job = {
+    configuration: {
+      query: {
+        useQueryCache: false,
+        destinationTable: {
+          projectId: projectId,
+          datasetId: 'marketing_analyst_general',
+          tableId: 'hs_test_ps_20171030'
+        },
+        writeDisposition: 'WRITE_TRUNCATE',
+        createDisposition: 'CREATE_IF_NEEDED',
+        useLegacySql: false,
+        maximumBillingTier: 2,
+        query: 'SELECT * FROM marketing_analyst_general.hs_test2_20171030'
+      }
+    }
+  }
+  var jobResult = BigQuery.Jobs.insert(job, projectId)
+  Logger.log(jobResult["status"])
+};
