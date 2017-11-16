@@ -1,0 +1,8 @@
+SELECT source, year_quarter, type, sum(total_support_mrr_converted) total_support_MRR, sum(support_booking_mrr_converted) old_total_support_MRR
+FROM finance_analyst_restricted.Bookings_Final a
+left join `edw_consolidated.edw_date_dim` b on a.close_date=b.the_date
+#where total_support_mrr_converted > 0
+#AND year_quarter = '2017Q2'
+group by 1, 2, 3
+#HAVING total_support_MRR > 0
+order by year_quarter asc
