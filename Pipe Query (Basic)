@@ -1,0 +1,12 @@
+SELECT accountid, account_name__c, account_region__c, region__c, opportunity_number__c, close_date__c, 
+total_support_mrr__c, total_chat_mrr__c, total_talk_mrr__c, total_explore_mrr__c, total_guide_mrr__c,
+type, type_of_expansion__c, stagename, forecastcategory
+FROM `edw-prod-153420.sfdc.opp_scd2` 
+Where date(dw_eff_start) = '2017-11-16'
+and type in ('New Business','Expansion')
+and close_date__c between '2017-10-01' and '2017-12-31' 
+and forecastcategoryname in ('Pipeline','Best Case','Commit')
+and non_commissionable__c = 'False' 
+and stagename <> 'closed'
+order by total_support_mrr__c desc
+LIMIT 1000
